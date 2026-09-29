@@ -1,0 +1,20 @@
+# 默认按文本处理并统一成 LF，避免 Windows / Unix 之间来回改写整份文件。
+* text=auto eol=lf
+
+# Windows 脚本必须带 CRLF，否则个别宿主会拒绝执行。
+*.ps1  text eol=crlf
+*.cmd  text eol=crlf
+*.bat  text eol=crlf
+
+# 二进制：一律不做行尾或编码转换。
+*.png  binary
+*.ico  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.gif  binary
+*.exe  binary
+
+# 锁文件在 diff / merge 里没有意义，也别占用统计。
+package-lock.json  -diff linguist-generated
+Cargo.lock         -diff linguist-generated

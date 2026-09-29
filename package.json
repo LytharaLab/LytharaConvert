@@ -1,0 +1,28 @@
+{
+  "name": "lythara-convert",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LytharaLab 本地媒体转换工作台（Vue 3 界面 + Rust 本地转换服务）",
+  "author": "LytharaLab",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node scripts/dev.cjs",
+    "dev:web": "vite",
+    "dev:server": "cargo run --manifest-path server/Cargo.toml",
+    "build": "vite build",
+    "build:server": "cargo build --release --manifest-path server/Cargo.toml",
+    "dist": "npm run build && npm run build:server && node scripts/portable.cjs",
+    "portable": "node scripts/portable.cjs",
+    "start": "cargo run --manifest-path server/Cargo.toml",
+    "test": "cargo test --manifest-path server/Cargo.toml",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.9",
+    "vite": "^7.3.6"
+  }
+}

@@ -1,0 +1,39 @@
+[package]
+name = "lythara-convert-server"
+version = "1.0.0"
+description = "Lythara Convert 本地转换服务（只监听 127.0.0.1）"
+authors = ["LytharaLab"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "lythara_convert_lib"
+crate-type = ["rlib"]
+
+[[bin]]
+name = "lythara-convert"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["multipart"] }
+tokio = { version = "1", features = ["process", "io-util", "sync", "rt-multi-thread", "macros", "time", "fs", "net"] }
+tokio-stream = { version = "0.1", features = ["sync"] }
+futures-util = "0.3"
+tower-http = { version = "0.7", features = ["fs"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+include_dir = "0.7"
+
+[build-dependencies]
+winresource = "0.1"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

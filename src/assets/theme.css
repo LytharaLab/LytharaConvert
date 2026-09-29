@@ -1,0 +1,117 @@
+/* Lythara Convert · 主题层
+   浅色界面由 style.css 定义（保持原样不动），本文件负责两件事：
+   1. 声明主题令牌（--bg / --surface / --text-* / --accent-* 等）；
+   2. 在 <html data-theme="dark"> 时用令牌覆盖 style.css 中的硬编码颜色。
+   令牌里的浅色值只服务运行时渐变（滑块轨道），深色值集中在 [data-theme=dark] 块。 */
+:root{--track:#e7eafa;--accent-fill:#6578e8;color-scheme:light}
+[data-theme=dark]{
+  color-scheme:dark;
+  --bg:#0f131d;--bg-topbar:#141926;--surface:#1a202e;--surface-2:#1f2637;--surface-3:#222a3b;--surface-4:#222a3b;--surface-inset:#1f2637;--field-bg:#141926;
+  --border:#262e40;--border-soft:#252c3e;--border-control:#2b3448;--border-field:#2b3448;--border-dashed:#2e374b;--border-drop:#38425c;--border-accent:#2c3560;
+  --text:#e7ecf6;--text-label:#b9c2d6;--text-2:#8b96ad;--text-3:#6f7a91;--text-4:#5b6479;
+  --accent:#7285f0;--accent-2:#5f72e0;--accent-text:#9aa9ff;--accent-text-hover:#bac4ff;--accent-border:#3a4571;--accent-border-strong:#5b6bd8;--accent-ring:#7285f029;
+  --accent-soft:#232b4a;--accent-soft-2:#202741;--accent-soft-3:#2b3563;
+  --success:#4cc294;--success-bg:#16302a;--success-text:#5fd0a6;--danger:#ef8b82;
+  --toggle-track:#323c52;--dot:#333d55;--overlay:#05070c99;--toast-bg:#2b3550;
+  --track:#2b3448;--accent-fill:#7285f0;
+  color:var(--text);background:var(--bg)
+}
+
+/* 顶栏与导航 */
+[data-theme=dark] .topbar{border-bottom-color:var(--border);background:var(--bg-topbar)}
+[data-theme=dark] .breadcrumb{color:var(--text-2)}
+[data-theme=dark] .breadcrumb span{color:var(--text-4)}
+[data-theme=dark] .breadcrumb b{color:var(--text)}
+[data-theme=dark] .status-pill{background:var(--success-bg);color:var(--success-text)}
+[data-theme=dark] .icon-button{border-color:var(--border-control);background:var(--surface);color:var(--text-2)}
+[data-theme=dark] .icon-button:hover{border-color:var(--accent-border)}
+
+/* 面板与步骤标记 */
+[data-theme=dark] .panel{background:var(--surface);border-color:var(--border)}
+[data-theme=dark] .step{background:var(--accent-soft);color:var(--accent-text)}
+[data-theme=dark] .quiet{color:var(--text-3)}
+
+/* 拖放区 */
+[data-theme=dark] .drop-zone{border-color:var(--border-drop);background:var(--surface-2)}
+[data-theme=dark] .drop-zone:hover,[data-theme=dark] .drop-zone.drag-over{background:var(--accent-soft-2);border-color:var(--accent-border-strong)}
+[data-theme=dark] .drop-icon{color:var(--accent);background:var(--accent-soft)}
+[data-theme=dark] .drop-zone strong{color:var(--text)}
+[data-theme=dark] .drop-zone>span{color:var(--text-3)}
+[data-theme=dark] .drop-dots i{background:var(--dot)}
+
+/* 文本按钮与已选文件 */
+[data-theme=dark] .text-button{color:var(--accent-text)}
+[data-theme=dark] .text-button:hover{color:var(--accent-text-hover)}
+[data-theme=dark] .text-button.subtle{color:var(--text-3)}
+[data-theme=dark] .text-button.subtle:hover{color:var(--text-label)}
+[data-theme=dark] .selected-file{background:var(--surface-3)}
+[data-theme=dark] .selected-file .file-icon{background:var(--accent-soft);color:var(--accent-text)}
+[data-theme=dark] .selected-file small{color:var(--text-3)}
+[data-theme=dark] .selected-file button{color:var(--text-3)}
+[data-theme=dark] .selected-file button:hover{color:var(--accent-text)}
+
+/* 表单控件 */
+[data-theme=dark] .field-label,[data-theme=dark] .field label{color:var(--text-label)}
+[data-theme=dark] .segmented{background:var(--surface-4)}
+[data-theme=dark] .segmented button{color:var(--text-2)}
+[data-theme=dark] .segmented button.chosen{background:var(--surface);color:var(--accent-text)}
+[data-theme=dark] .field select,[data-theme=dark] .field input:not([type=range]){border-color:var(--border-field);background:var(--field-bg);color:var(--text)}
+[data-theme=dark] .field select:focus,[data-theme=dark] .field input:focus{border-color:var(--accent-border);box-shadow:0 0 0 3px var(--accent-ring)}
+[data-theme=dark] .hint,[data-theme=dark] .field-help{color:var(--text-3)}
+[data-theme=dark] .label-help{color:var(--text-3)}
+[data-theme=dark] .value-chip{color:var(--accent-text);background:var(--accent-soft)}
+[data-theme=dark] .field input[type=range]{background:linear-gradient(to right,var(--accent-fill) 75%,var(--track) 75%)}
+[data-theme=dark] .field input[type=range]::-webkit-slider-thumb{background:var(--accent);border-color:var(--surface)}
+[data-theme=dark] .range-caption{color:var(--text-3)}
+[data-theme=dark] .input-unit span{color:var(--text-3)}
+
+/* 输出位置与提交行 */
+[data-theme=dark] .output-location{border-color:var(--border-soft);background:var(--surface-inset)}
+[data-theme=dark] .output-icon{background:var(--accent-soft);color:var(--accent-text)}
+[data-theme=dark] .output-location small{color:var(--text-3)}
+[data-theme=dark] .submit-row{color:var(--text-2)}
+[data-theme=dark] .submit-row b{color:var(--accent-text)}
+[data-theme=dark] .primary-button{background:linear-gradient(100deg,var(--accent),var(--accent-2))}
+
+/* 队列面板 */
+[data-theme=dark] .side-eyebrow{color:var(--accent-text)}
+[data-theme=dark] .queue-count{background:var(--accent-soft);color:var(--accent-text)}
+[data-theme=dark] .queue-empty{border-color:var(--border-dashed);background:var(--surface-inset);color:var(--text-3)}
+[data-theme=dark] .queue-empty svg{stroke:var(--text-4)}
+[data-theme=dark] .queue-empty b{color:var(--text-label)}
+[data-theme=dark] .queue-task{border-color:var(--border-soft)}
+[data-theme=dark] .task-type{background:var(--accent-soft);color:var(--accent-text)}
+[data-theme=dark] .task-meta small{color:var(--text-3)}
+[data-theme=dark] .task-status{color:var(--accent-text)}
+[data-theme=dark] .task-status.done{color:var(--success)}
+[data-theme=dark] .task-status.error,[data-theme=dark] .task-status.cancelled{color:var(--danger)}
+[data-theme=dark] .task-progress{background:var(--surface-4)}
+[data-theme=dark] .task-progress span{background:var(--accent)}
+[data-theme=dark] .task-error{color:var(--danger)}
+[data-theme=dark] .task-actions button{color:var(--accent-text)}
+[data-theme=dark] .open-folder{border-color:var(--border-soft);color:var(--accent-text);background:var(--surface-2)}
+[data-theme=dark] .open-folder:hover{border-color:var(--accent-border);background:var(--accent-soft-2)}
+
+/* 提示条与提示面板 */
+[data-theme=dark] .tip-panel{background:var(--accent-soft-2);color:var(--text-label)}
+[data-theme=dark] .tip-icon{background:var(--accent-soft-3);color:var(--accent-text)}
+[data-theme=dark] .tip-panel p{color:var(--text-2)}
+[data-theme=dark] .info-strip{border-color:var(--border-accent);background:var(--accent-soft-2);color:var(--accent-text)}
+
+/* 弹窗、开关与吐司 */
+[data-theme=dark] .modal-overlay{background:var(--overlay)}
+[data-theme=dark] .modal{background:var(--surface)}
+[data-theme=dark] .toggle-row small{color:var(--text-3)}
+[data-theme=dark] .toggle-row i{background:var(--toggle-track)}
+[data-theme=dark] .toggle-row input:checked+i{background:var(--accent)}
+[data-theme=dark] .modal p{color:var(--text-3)}
+[data-theme=dark] .toast{background:var(--toast-bg)}
+[data-theme=dark] .optimization-toggle{background:var(--surface-2);border-color:var(--border-soft)}
+[data-theme=dark] .optimization-toggle small{color:var(--text-3)}
+[data-theme=dark] .optimization-toggle i{background:var(--toggle-track)}
+[data-theme=dark] .optimization-toggle input:checked+i{background:var(--accent)}
+
+/* 偏好设置里的主题选择 */
+#themeChoice{display:flex;width:100%}
+#themeChoice button{flex:1}
+.setting-block{margin-bottom:16px}
