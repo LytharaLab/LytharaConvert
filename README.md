@@ -9,7 +9,7 @@ LytharaLab 出品的本地媒体转换工作台：**Vue 3 界面 + Rust 本地�
 仓库**不携带** FFmpeg 二进制（`ffmpeg.exe` + `ffprobe.exe` 合计约 140 MB，不适合放进 Git），克隆后先补一次引擎：
 
 ```powershell
-git clone <仓库地址> lythara-convert
+git clone https://github.com/LytharaLab/LytharaConvert.git
 cd lythara-convert
 
 pwsh scripts/fetch-ffmpeg.ps1   # 下载 FFmpeg 到 server\binaries\（约 115 MB）
