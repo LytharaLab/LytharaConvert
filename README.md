@@ -67,8 +67,9 @@ npm run portable   # 只重新整理已经编译好的产物
 
 ```text
 lythara-convert.exe    约 1.6 MB，界面已内嵌在 exe 里
-binaries\              ffmpeg.exe / ffprobe.exe
-LICENSE / README.md / 使用说明.txt
+binaries\              ffmpeg.exe / ffprobe.exe，外加引擎的许可与构建说明
+LICENSE / README.md / THIRD-PARTY.md / 使用说明.txt
+licenses\GPL-3.0.txt   FFmpeg 的 GPLv3 全文（再分发时必须随附）
 appdata\               首次运行自动生成：settings.json / uploads / tmp
 ```
 
@@ -126,6 +127,9 @@ exe 所在目录不可写时（比如装在 `Program Files` 下），数据目�
 index.html              Vite 入口
 vite.config.js          开发端口与 /api 代理
 package.json            脚本与前端依赖
+LICENSE                 本项目代码的 MIT 协议
+THIRD-PARTY.md          第三方组件（FFmpeg）声明与分发义务
+licenses/               第三方许可证全文（GPL-3.0.txt）
 src/                    Vue 3 界面
   api.js                接口客户端（同源请求）
   store.js              全局状态与动作
@@ -180,7 +184,17 @@ assets/                 图标源文件（scripts/make_icon.py 生成）
 
 ## 许可
 
-本仓库代码以 [MIT](LICENSE) 协议发布，Copyright © 2026 LytharaLab。
+本仓库**自身的代码**（Vue 界面 + Rust 服务）以 [MIT](LICENSE) 协议发布，Copyright © 2026 LytharaLab。
 
-随附或另行下载的 FFmpeg 二进制是第三方成果，以 **GPLv3** 发布，版权归 FFmpeg 开发者所有
-（<https://ffmpeg.org/>）。再分发打包好的绿色版时，请一并遵守 FFmpeg 的许可证要求。
+但**运行时依赖的 FFmpeg 不是 MIT**：随附或另行下载的 `ffmpeg.exe` / `ffprobe.exe`
+以 **GPLv3** 发布，版权归 FFmpeg 开发者所有（<https://ffmpeg.org/>）。
+
+本项目通过命令行子进程调用 FFmpeg，没有链接任何 `libav*` 库，两者是聚合关系而非衍生作品，
+所以 MIT 与 GPLv3 可以并存 —— 但分发打包好的绿色版时，**两套条款的义务都要履行**：
+
+- 附上 GPLv3 全文：[licenses/GPL-3.0.txt](licenses/GPL-3.0.txt)
+- 给出对应源码的版本与获取方式
+- 保留版权与许可声明，且不得对 FFmpeg 部分附加额外限制
+
+完整说明、义务清单以及商标与专利提示见 **[THIRD-PARTY.md](THIRD-PARTY.md)**。
+上面这些都是工程层面的整理，不构成法律意见，正式对外分发前请自行确认。

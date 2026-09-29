@@ -22,14 +22,28 @@ fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(path.join(out, 'binaries'), { recursive: true });
 
 fs.copyFileSync(exe, path.join(out, 'lythara-convert.exe'));
+
+// 引擎目录整个搬过去：除了 ffmpeg.exe / ffprobe.exe，还包含 fetch-ffmpeg.ps1
+// 从上游压缩包里取出的许可证与构建说明 —— 分发 GPLv3 二进制时要附上这些。
 let binaries = 0;
 for (const name of fs.readdirSync(sourceBinaries)) {
   fs.copyFileSync(path.join(sourceBinaries, name), path.join(out, 'binaries', name));
-  binaries += 1;
+  if (name.toLowerCase().endsWith('.exe')) binaries += 1;
 }
-for (const extra of ['LICENSE', 'README.md']) {
+
+// 顶层文档：MIT 协议、说明、第三方组件声明。
+for (const extra of ['LICENSE', 'README.md', 'THIRD-PARTY.md']) {
   const from = path.join(root, extra);
   if (fs.existsSync(from)) fs.copyFileSync(from, path.join(out, extra));
+}
+
+// 第三方许可证全文（GPLv3）。
+const licenseDir = path.join(root, 'licenses');
+if (fs.existsSync(licenseDir)) {
+  fs.mkdirSync(path.join(out, 'licenses'), { recursive: true });
+  for (const name of fs.readdirSync(licenseDir)) {
+    fs.copyFileSync(path.join(licenseDir, name), path.join(out, 'licenses', name));
+  }
 }
 
 fs.writeFileSync(path.join(out, '使用说明.txt'), [
@@ -53,10 +67,13 @@ fs.writeFileSync(path.join(out, '使用说明.txt'), [
   '',
   '【首次运行被拦】Windows 可能提示「未知发布者」，点「更多信息 → 仍要运行」。',
   '',
-  '【转换引擎】binaries\\ffmpeg.exe 与 ffprobe.exe，来自 FFmpeg（GPL v3 构建），',
-  '            随本软件一起分发时请遵守其许可证；详见 LICENSE 与 FFmpeg 官网。',
+  '【第三方组件】binaries\\ffmpeg.exe 与 ffprobe.exe 来自 FFmpeg，以 GPLv3 发布，',
+  '            版权归 FFmpeg 开发者所有（https://ffmpeg.org/）。',
+  '            许可证全文：licenses\\GPL-3.0.txt',
+  '            版本 / 源码 / 构建参数：THIRD-PARTY.md、binaries\\FFMPEG-BUILD-INFO.txt',
+  '            ★ 再分发本目录时必须一并保留以上文件，并遵守 GPLv3。',
   '',
-  'Copyright © 2026 LytharaLab. MIT License.'
+  '本软件自身代码：Copyright © 2026 LytharaLab，MIT License（见 LICENSE）。'
 ].join('\r\n'), 'utf8');
 
 const size = dir => {
